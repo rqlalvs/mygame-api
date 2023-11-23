@@ -64,36 +64,8 @@ namespace SteamApiExample.Controllers
 
                     NossaBase nossaBase = new NossaBase();
                     nossaBase.ProcessAppList(result);
-
+                    
                     return Ok(result);
-                }
-                else
-                {
-                    return StatusCode((int)response.StatusCode);
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Ocorreu um erro ao processar a solicitação.");
-            }
-        }
-
-        [HttpGet("appimage/{appId}")]
-        [SwaggerOperation(Summary = "Imagem de um App da Steam por ID")]
-        [SwaggerResponse(200, "Success")]
-        [SwaggerResponse(400, "Bad request")]
-        public async Task<IActionResult> GetAppImage(string appId)
-        {
-            try
-            {
-                string imageUrl = $"https://media.steampowered.com/steamcommunity/public/images/apps/400/{appId}.jpg";
-                HttpResponseMessage response = await _httpClient.GetAsync(imageUrl);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var imageBytes = await response.Content.ReadAsByteArrayAsync();
-
-                    return File(imageBytes, "image/jpeg");
                 }
                 else
                 {

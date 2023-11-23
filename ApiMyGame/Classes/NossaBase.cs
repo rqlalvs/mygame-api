@@ -23,6 +23,7 @@ namespace ApiMyGame.Classes
         {
             dynamic gameData = JsonConvert.DeserializeObject(jsonData);
             dynamic gameDetails = gameData[gameId]["data"];
+
             try
             {
                 using (OracleConnection connection = dbConnection.GetOracleConnection())
@@ -35,12 +36,14 @@ namespace ApiMyGame.Classes
                                        "CAPSULE_IMAGE, CAPSULE_IMAGEV5, WEBSITE, " +
                                        "RELEASE_DATE, ID_JOGO" +
                                        ") " +
-                                       "VALUES (" +
-                                       ":TYPE, :NAME, :STEAM_APPID, :REQUIRED_AGE, :IS_FREE, " +
+                                       "SELECT :TYPE, :NAME, :STEAM_APPID, :REQUIRED_AGE, :IS_FREE, " +
                                        ":DLCS, :DETAILED_DESCRIPTION, :ABOUT_THE_GAME, " +
                                        ":SHORT_DESCRIPTION, :SUPPORTED_LANGUAGES, :HEADER_IMAGE, " +
                                        ":CAPSULE_IMAGE, :CAPSULE_IMAGEV5, :WEBSITE, " +
-                                       "TO_DATE('1990-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss'), :ID_JOGO)";
+                                       "TO_DATE('1990-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss'), :ID_JOGO " +
+                                       "FROM DUAL " +
+                                       "WHERE NOT EXISTS " +
+                                       "(SELECT 1 FROM DETALHES_JOGO WHERE STEAM_APPID = :STEAM_APPID)";
 
                     using (OracleCommand cmd = new OracleCommand(insertSql, connection))
                     {
@@ -68,8 +71,8 @@ namespace ApiMyGame.Classes
             {
 
             }
-            
         }
+
 
         public void ProcessAppList(string jsonData)
         {
@@ -81,7 +84,10 @@ namespace ApiMyGame.Classes
 
                 foreach (var app in appListData.applist.apps)
                 {
-                    string insertSql = "INSERT INTO LISTA_APPS (APP_ID, NAME) VALUES (:APP_ID, :NAME)";
+                    string insertSql = "INSERT INTO LISTA_APPS (APP_ID, NAME) " +
+                                       "SELECT :APP_ID, :NAME FROM DUAL " +
+                                       "WHERE NOT EXISTS " +
+                                       "(SELECT 1 FROM LISTA_APPS WHERE APP_ID = :APP_ID)";
 
                     using (OracleCommand cmd = new OracleCommand(insertSql, connection))
                     {
@@ -90,23 +96,6 @@ namespace ApiMyGame.Classes
 
                         cmd.ExecuteNonQuery();
                     }
-                }
-            }
-        }
-
-        public void ProcessImage(string imageUrl)
-        {
-            using (OracleConnection connection = dbConnection.GetOracleConnection())
-            {
-                connection.Open();
-
-                string insertSql = "INSERT INTO IMAGENS (IMAGE_URL) VALUES (:IMAGE_URL)";
-
-                using (OracleCommand cmd = new OracleCommand(insertSql, connection))
-                {
-                    cmd.Parameters.Add("IMAGE_URL", imageUrl);
-
-                    cmd.ExecuteNonQuery();
                 }
             }
         }
