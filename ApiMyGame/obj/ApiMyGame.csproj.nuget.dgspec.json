@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\facul\\mygame\\ApiMyGame\\ApiMyGame\\ApiMyGame.csproj": {}
+    "D:\\facul\\mygame\\ApiMyGame\\mygame-api\\ApiMyGame\\ApiMyGame.csproj": {}
   },
   "projects": {
-    "D:\\facul\\mygame\\ApiMyGame\\ApiMyGame\\ApiMyGame.csproj": {
+    "D:\\facul\\mygame\\ApiMyGame\\mygame-api\\ApiMyGame\\ApiMyGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\facul\\mygame\\ApiMyGame\\ApiMyGame\\ApiMyGame.csproj",
+        "projectUniqueName": "D:\\facul\\mygame\\ApiMyGame\\mygame-api\\ApiMyGame\\ApiMyGame.csproj",
         "projectName": "ApiMyGame",
-        "projectPath": "D:\\facul\\mygame\\ApiMyGame\\ApiMyGame\\ApiMyGame.csproj",
+        "projectPath": "D:\\facul\\mygame\\ApiMyGame\\mygame-api\\ApiMyGame\\ApiMyGame.csproj",
         "packagesPath": "C:\\Users\\Raquel-PC\\.nuget\\packages\\",
-        "outputPath": "D:\\facul\\mygame\\ApiMyGame\\ApiMyGame\\obj\\",
+        "outputPath": "D:\\facul\\mygame\\ApiMyGame\\mygame-api\\ApiMyGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Raquel-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
